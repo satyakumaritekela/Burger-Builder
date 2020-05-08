@@ -1,0 +1,11 @@
+.BurgerBuilder {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+}
+
+@media (max-width: 700px) {
+  .BurgerBuilder {
+    flex-flow: column;
+  }
+}

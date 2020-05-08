@@ -1,0 +1,27 @@
+.BuildControls {
+  width: 50%;
+  background-color: #ffffff;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  box-shadow: 0 2px 5px #ccc;
+  padding: 10px 0;
+  border-radius: 10px;
+  margin: 5% 5% 0 0;
+  height: 50%;
+}
+
+.Description {
+  color: #aa6817;
+  font-weight: bolder;
+  font-size: 20px;
+  padding: 15px;
+}
+
+@media (max-width: 700px) {
+  .BuildControls {
+    width: 100%;
+    border-radius: 0;
+    margin: 0;
+  }
+}

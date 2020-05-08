@@ -4,7 +4,7 @@ import classes from "./Layout.module.css";
 const layout = (props) => (
   <Fragment>
     <div>Toolbar, SideDrawer, Backdrop</div>
-    <main className={classes.ToolBar_Margin}>{props.children}</main>
+    <main className={classes.Builder_Margin}>{props.children}</main>
   </Fragment>
 );
 
