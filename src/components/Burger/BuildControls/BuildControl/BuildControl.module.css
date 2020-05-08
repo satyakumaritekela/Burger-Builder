@@ -58,3 +58,8 @@
   background-color: #99703f;
   color: white;
 }
+
+.IngredientError {
+  color: #daa972;
+  font-weight: 700;
+}

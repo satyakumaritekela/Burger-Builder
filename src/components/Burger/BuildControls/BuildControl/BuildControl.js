@@ -1,12 +1,31 @@
-import React from "react";
+import React, { Fragment } from "react";
 import classes from "./BuildControl.module.css";
 
 const buildControl = (props) => (
-  <div className={classes.BuildControl}>
-    <button className={classes.Add}>Add</button>
-    <div className={classes.Label}>{props.label}</div>
-    <button className={classes.Remove}>Remove</button>
-  </div>
+  <Fragment>
+    <div className={classes.BuildControl}>
+      <button
+        className={classes.Remove}
+        onClick={props.remove}
+        disabled={props.disabledRemove}
+      >
+        Remove
+      </button>
+      <div className={classes.Label}>{props.label}</div>
+      <button
+        className={classes.Add}
+        onClick={props.add}
+        disabled={props.disabledAdd}
+      >
+        Add
+      </button>
+    </div>
+    {props.disabledAdd ? (
+      <div className={classes.IngredientError}>Cannot add more {props.label}</div>
+    ) : (
+      ""
+    )}
+  </Fragment>
 );
 
 export default buildControl;
