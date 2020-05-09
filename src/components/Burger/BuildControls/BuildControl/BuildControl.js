@@ -15,7 +15,6 @@ const buildControl = (props) => (
       <button
         className={classes.Add}
         onClick={props.add}
-        disabled={props.disabledAdd}
       >
         Add
       </button>

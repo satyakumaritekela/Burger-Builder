@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import classes from "./BurgerBuilder.module.css";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -19,14 +21,24 @@ class BurgerBuilder extends Component {
       bacon: 0,
     },
     totalPrice: 4,
+    purchasable: false,
+    purchasing: false,
+  };
+
+  updatePurchase = (ingredients) => {
+    const sum = Object.values(ingredients).reduce(
+      (totalSum, ingredientCount) => totalSum + ingredientCount,
+      0
+    );
+
+    this.setState({
+      purchasable: sum > 0,
+    });
   };
 
   addIngredientHandler = (type) => {
     const oldCount = this.state.ingredients[type];
     const updatedCount = oldCount + 1;
-    if (updatedCount > 5) {
-      return;
-    }
     const updatedIngredients = {
       ...this.state.ingredients,
     };
@@ -38,6 +50,7 @@ class BurgerBuilder extends Component {
       totalPrice: newTotalPrice,
       ingredients: updatedIngredients,
     });
+    this.updatePurchase(updatedIngredients);
   };
 
   removeIngredientHandler = (type) => {
@@ -57,29 +70,52 @@ class BurgerBuilder extends Component {
       totalPrice: newTotalPrice,
       ingredients: updatedIngredients,
     });
+    this.updatePurchase(updatedIngredients);
   };
+
+  purchaseHandler = () => {
+    this.setState({
+      purchasing: true,
+    });
+  };
+
+  purchaseCancelHandler = () => {
+    this.setState({
+      purchasing: false,
+    });
+  };
+
+  purchaseContinueHandler = () => {};
 
   render() {
     const disabledRemoveInfo = {
       ...this.state.ingredients,
     };
-    const disabledAddInfo = {
-      ...this.state.ingredients,
-    };
     for (let key in disabledRemoveInfo) {
       disabledRemoveInfo[key] = disabledRemoveInfo[key] <= 0;
     }
-    for (let key in disabledAddInfo) {
-      disabledAddInfo[key] = disabledAddInfo[key] > 4;
-    }
+    const newTotalPrice = this.state.totalPrice.toFixed(2);
     return (
       <div className={classes.BurgerBuilder}>
+        <Modal
+          show={this.state.purchasing}
+          modalClosed={this.purchaseCancelHandler}
+        >
+          <OrderSummary
+            ingredients={this.state.ingredients}
+            price={this.state.totalPrice}
+            purchaseCancel={this.purchaseCancelHandler}
+            purchaseContinue={this.purchaseContinueHandler}
+          />
+        </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           addIngredient={this.addIngredientHandler}
           removeIngredient={this.removeIngredientHandler}
           disabledRemove={disabledRemoveInfo}
-          disabledAdd={disabledAddInfo}
+          totalPrice={newTotalPrice}
+          purchasable={this.state.purchasable}
+          purchase={this.purchaseHandler}
         />
       </div>
     );

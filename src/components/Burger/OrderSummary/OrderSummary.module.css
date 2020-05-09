@@ -1,0 +1,31 @@
+.OrderListStyle {
+  padding: 0;
+  margin: 0;
+}
+
+.ListStyle {
+  list-style: none;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.Description {
+  color: #aa6817;
+  font-weight: bolder;
+  font-size: 20px;
+  padding: 15px;
+  margin-bottom: 0;
+}
+
+.Ingredient {
+  color: #aa6817;
+  font-weight: bolder;
+  font-size: 15px;
+}
+
+.Checkout {
+  color: #5c9210;
+  font-weight: bolder;
+  font-size: 15px;
+}
